@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="wasm_exec.js"></script>
+    <script>
+        fetch("main.wasm").then(async response => {
+            const go = new Go();
+            const buffer = await response.arrayBuffer();
+            WebAssembly.instantiate(buffer, go.importObject).then((result) => {
+                go.run(result.instance);
+            });
+        });
+    </script>
+  </head>
+  <body></body>
+</html>
